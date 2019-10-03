@@ -1,19 +1,14 @@
-name: Test approve
+name: Auto approve
 on: 
   pull_request:
     branches:
       - master
 
 jobs:
-  build:
+  approve:
     runs-on: ubuntu-latest
+    if: github.actor == 'nick' && github.head_ref == 'pr_tst'
     steps:
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - name: Approve PR
-        uses: hmarr/auto-approve-action@v2.0.0
-        if: github.actor == 'nick'
+      - uses: hmarr/auto-approve-action@v2.0.0
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"

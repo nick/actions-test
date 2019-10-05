@@ -32,7 +32,7 @@ jobs:
         uses: actions/download-artifact@master
         with:
           name: all-files
-          path: /tmp/workspace.tar.gz
+          path: /tmp
       - name: Unzip
         run: tar -xzf /tmp/workspace.tar.gz .
       - name: find

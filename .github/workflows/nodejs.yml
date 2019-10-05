@@ -36,7 +36,10 @@ jobs:
         uses: actions/download-artifact@master
         with:
           name: yarn-cache
-      - name: PWD
-        run: pwd
+          path: ./
+      - name: find
+        run: find . -maxdepth 2
+      - name: Unzip
+        run: tar -xzf node_modules.tar.gz
       - name: find
         run: find . -maxdepth 2

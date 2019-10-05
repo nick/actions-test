@@ -15,12 +15,12 @@ jobs:
       - name: Yarn Install
         run: yarn
       - name: Zip node_modules
-        run: tar cfz all.tar.gz .
+        run: tar cfz /tmp/workspace.tar.gz .
       - name: Upload Cache
         uses: actions/upload-artifact@master
         with:
           name: all-files
-          path: all.tar.gz
+          path: /tmp/workspace.tar.gz
 
   puppeteer-1:
     needs: checkout
@@ -32,8 +32,8 @@ jobs:
         uses: actions/download-artifact@master
         with:
           name: all-files
-          path: ./
+          path: /tmp/workspace.tar.gz
       - name: Unzip
-        run: tar -xzf all.tar.gz
+        run: tar -xzf /tmp/workspace.tar.gz .
       - name: find
         run: find . -maxdepth 2

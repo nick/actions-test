@@ -37,9 +37,7 @@ jobs:
         with:
           name: yarn-cache
       - name: Unzip node_modules
-        run:
-          | mv yarn-cache/node_modules.tar.gz .
-          | tar -xzf node_modules.tar.gz
+        run: tar -xzf node_modules.tar.gz
       - name: PWD
         run: pwd
       - name: ls

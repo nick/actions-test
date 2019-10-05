@@ -39,4 +39,4 @@ jobs:
       - name: PWD
         run: pwd
       - name: find
-        run: find . -d 2
+        run: find . -maxdepth 2

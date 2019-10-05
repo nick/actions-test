@@ -1,0 +1,46 @@
+name: Origin Tests
+
+on: push
+
+jobs:
+  checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+      - name: Yarn Install
+        run: yarn
+      - name: Zip node_modules
+        run: tar cfz node_modules.tar.gz node_modules
+      - name: Upload Cache
+        uses: actions/upload-artifact@master
+        with:
+          name: yarn-cache
+          path: node_modules.tar.gz
+
+  puppeteer-1:
+    needs: checkout
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+      - name: Download Cache
+        uses: actions/download-artifact@master
+        with:
+          name: yarn-cache
+      - name: Unzip node_modules
+        run:
+          | mv yarn-cache/node_modules.tar.gz .
+          | tar -xzf node_modules.tar.gz
+      - name: PWD
+        run: pwd
+      - name: ls
+        run: ls -al
